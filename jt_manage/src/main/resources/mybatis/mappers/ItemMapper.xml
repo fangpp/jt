@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jt.mapper.ItemMapper">
+	<!--留着以后用  -->
+
+	<!--
+		提示:void deleteIds(Long[] ids);
+		原理:
+			1.Mybatis原生支持单值传参
+			2.如果遇到多值传参,则Mybatis会将多值封装为单值.
+			  利用Map集合进行封装
+			3.Mybatis升级之后,会自动的封装数据.
+		原则:
+			1.如果mybatis 进行单值传参
+				数据:   	collection="array"
+				list集合: 	collection="list"
+				Map集合:	collection="Map中的key"
+	-->
+	<delete id="deleteIds">
+		delete from tb_item where id in 
+		<foreach collection="array" open="(" close=")"
+				 			separator="," item="id">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!--
+		<insert id="xxxxx"  useGeneratedKeys="true" keyProperty="itemId" keyColumn="item_id">
+
+		</insert>
+	-->
+
+	<!--<delete id="xxx">
+		delete from tb_item where id in (100,101,102);
+		delete from tb_item_desc where id in (100,101,102)
+	</delete>-->
+
+
+</mapper>
